@@ -13,15 +13,15 @@ Model links
 
 ## Feature todos:
 
-Bank output dump import (usually csv)
-Database backups
-Same format export
-Future spending planning
-Time series events: extensive vocabulary for referring to time (every two weeks until ...)
-Filters
-Live updates
-Javascript frontend: Angular or React
-Visualization (probably using d3)
-Seriously, lots of visualizations
-User accounts (for when it's not local anymore)
-Encryption?
+* Bank output dump import (usually csv)
+* Database backups
+* Same format export
+* Future spending planning
+* Time series events: extensive vocabulary for referring to time (every two weeks until ...)
+* Filters
+* Live updates
+* Javascript frontend: Angular or React
+* Visualization (probably using d3)
+* Seriously, lots of visualizations
+* User accounts (for when it's not local anymore)
+* Encryption?

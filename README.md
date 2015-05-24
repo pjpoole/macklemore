@@ -9,6 +9,16 @@ Aims to (eventually) be a lightweight double-entry bookkeeping system that suppo
 ## TODO:
 
 Model links
+Database links
+* User has Accounts
+* Account has Users
+* Split belongs to transactions
+Account consists of many transactions, which have splits
+Statement has many transactions, date range
+Transaction is reconciled or not
+Future
+Account bundles?
+
 
 
 ## Feature todos:

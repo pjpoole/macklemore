@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150521044737) do
+ActiveRecord::Schema.define(version: 20150524165143) do
 
   create_table "accounts", force: :cascade do |t|
     t.string   "name",       null: false
@@ -27,6 +27,8 @@ ActiveRecord::Schema.define(version: 20150521044737) do
     t.datetime "updated_at", null: false
   end
 
+  add_index "categories", ["group_id"], name: "index_categories_on_group_id"
+
   create_table "splits", force: :cascade do |t|
     t.integer  "category_id"
     t.decimal  "amount",      null: false
@@ -34,6 +36,8 @@ ActiveRecord::Schema.define(version: 20150521044737) do
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
+
+  add_index "splits", ["category_id"], name: "index_splits_on_category_id"
 
   create_table "statements", force: :cascade do |t|
     t.integer  "account_id"
@@ -53,5 +57,7 @@ ActiveRecord::Schema.define(version: 20150521044737) do
     t.datetime "updated_at", null: false
     t.string   "status"
   end
+
+  add_index "transactions", ["account_id"], name: "index_transactions_on_account_id"
 
 end

@@ -1,4 +1,31 @@
+
+
 require 'csv'
+
+# def try(headers = true)
+#   data_directory = File.join(Rails.root, "data", "*.{csv,CSV}")
+
+#   csv_files = Dir.glob(data_directory)
+
+#   csv_files.each do |csv_file|
+#     file = File.open(csv_file, "r")
+
+#     headers = file.readline
+
+
+class CSVFile < File
+  def gets(*args)
+
+    line = super("\n")
+
+    if line != nil
+      line.gsub!(/([^\r])\n\z/, "\\1\r\n")
+      line = nil if line == "\A\z"
+    end
+
+    line
+  end
+end
 
 def try(headers = true)
   data_directory = File.join(Rails.root, "data", "*.{csv,CSV}")
@@ -7,7 +34,7 @@ def try(headers = true)
 
   # Repair files broken across lines
   csv_files.each do |csv_file|
-    file = File.open(csv_file, "r")
+    file = CSVFile.open(csv_file, "r")
 
     file.gets
     line = file.gets
@@ -26,13 +53,15 @@ def try(headers = true)
 
       File.write(csv_file, output)
     end
-  end
 
-  csv_files.each do |csv_file|
-    puts csv_file
-    CSV.foreach(csv_file, headers: true, header_converters: [:downcase, :symbol]) do |line|
-      p line
+    file = CSVFile.open(csv_file, "r")
+    CSV.new(
+      file,
+      headers: true,
+      header_converters: [:downcase, :symbol],
+      row_sep: "\r\n"
+    ).each do |line|
+      p "blah"
     end
-    # puts file.readline
   end
 end

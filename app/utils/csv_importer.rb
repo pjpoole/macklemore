@@ -1,17 +1,4 @@
-
-
 require 'csv'
-
-# def try(headers = true)
-#   data_directory = File.join(Rails.root, "data", "*.{csv,CSV}")
-
-#   csv_files = Dir.glob(data_directory)
-
-#   csv_files.each do |csv_file|
-#     file = File.open(csv_file, "r")
-
-#     headers = file.readline
-
 
 class CSVFile < File
   def gets(*args)
@@ -32,26 +19,22 @@ def try(headers = true)
 
   csv_files = Dir.glob(data_directory)
 
-  # Repair files broken across lines
   csv_files.each do |csv_file|
-    file = CSVFile.open(csv_file, "r")
-
-    file.gets
-    line = file.gets
-    if line.count("\"").odd?
-      file.rewind
-
-      contents = headers ? [file.gets] : []
-
-      lines = file.readlines
-
-      (0...lines.size).step(2) do |idx|
-        contents << lines[idx].sub(/\n/,'').concat(lines[idx + 1])
+    converter = lambda do |entry, ary|
+      entry.gsub!(/(\n|\r)/,'')
+      case ary.header
+      when :date
+        # TODO: I18n of date parsing
+        Date.strptime(entry, "%m/%d/%Y")
+      when :debit, :credit
+        entry.gsub!(/,/,'').to_f
+      when :description
+        entry.strip!
+      else
+        entry
       end
 
-      output = contents.join
-
-      File.write(csv_file, output)
+      entry
     end
 
     file = CSVFile.open(csv_file, "r")
@@ -59,9 +42,10 @@ def try(headers = true)
       file,
       headers: true,
       header_converters: [:downcase, :symbol],
+      converters: converter,
       row_sep: "\r\n"
     ).each do |line|
-      p "blah"
+      p line
     end
   end
 end

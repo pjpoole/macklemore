@@ -24,9 +24,16 @@ Account bundles?
 ## Feature todos:
 
 * Bank output dump import (usually csv)
+* OFX/QFX parsing
+* Native splits
 * Database backups
 * Same format export
+* Cash tracking
+* Receipt attachment
+* Past spending analysis
 * Future spending planning
+* Burn rate (moving average)
+* Forecasting
 * Time series events: extensive vocabulary for referring to time (every two weeks until ...)
 * Filters
 * Live updates
